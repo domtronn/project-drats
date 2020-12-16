@@ -1,5 +1,6 @@
 <script>
-  export let state
+  export let state, players
+  console.log(players)
 
   import ScoreTable from './components/ScoreTable.svelte'
   import { DartsStub } from './game'
@@ -17,7 +18,7 @@
 
 <ScoreTable
   active={player}
-  players={Object.keys(scores)}
+  players={players}
   scores={scores}
   throws={throws}
   />

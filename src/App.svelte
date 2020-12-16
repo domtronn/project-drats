@@ -10,10 +10,11 @@
   import ConfettiWinner from './components/ConfettiSvelte.svelte'
   import Fireworks from './components/Fireworks.svelte'
 
-  let game, gameover, state
+  let game, gameover, state, players
 
-  const startGame = (players) => {
-    game = Client({ game: Darts, numPlayers: players.length })
+  const startGame = (p) => {
+    players = p
+    game = Client({ game: Darts, numPlayers: p.length })
     game.start()
     state = game.getState()
   }
@@ -28,17 +29,29 @@
 </script>
 
 <style>
+  main {
+    height: 100vh;
+    width: 100vw;
+
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 1fr 15fr 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      ". ."
+      "Form Dartboard"
+      ". .";
+  }
 </style>
 
 <main>
-
-{#if !state}
-  <GameForm onSubmit={startGame} />
-  <Board />
-{:else}
-  <Game state={state} />
-  <Board onClick={move(game && game.moves.hitDart)}/>
-{/if}
+  {#if !state || !players}
+    <GameForm onSubmit={startGame} />
+    <Board />
+  {:else}
+    <Game state={state} players={players} />
+    <Board onClick={move(game && game.moves.hitDart)}/>
+  {/if}
 
 {#if gameover}
   <ConfettiWinner

@@ -1,5 +1,6 @@
 <script>
   export let players, scores, throws, active
+  console.log(players)
 </script>
 
 <style>

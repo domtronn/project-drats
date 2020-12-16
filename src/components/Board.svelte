@@ -43,17 +43,14 @@
 
 <style>
   svg {
-    max-height: 90vh;
+    margin: 0 auto;
+    grid-area: Dartboard;
+    height: 100%;
     width: auto;
   }
 
   path {
     transition: fill 0.2s ease-in-out, transform 0.2s ease-in;
-  }
-
-  path:hover {
-    cursor: pointer;
-    transform: scale(1.1);
   }
 </style>
 

@@ -68,5 +68,5 @@
 </div>
 
 {#each confetti as c}
-  <span style="background-color: var(--{c.i % 2 ? 'primary' : 'secondary'}); opacity: {Math.abs((c.opacity % 1) - 0.5) + 0.5}; left: {c.x}%; top: {c.y}%; transform: scale({c.r})"></span>
+  <span style="background-color: var(--t{c.i % 9}); opacity: {Math.abs((c.opacity % 1) - 0.5) + 0.5}; left: {c.x}%; top: {c.y}%; transform: scale({c.r})"></span>
 {/each}

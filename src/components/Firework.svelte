@@ -61,5 +61,5 @@
 </style>
 
 {#each lights as l}
-  <span style="background-color: var(--{l.i % 2 ? 'primary' : 'secondary'}); opacity: {l.opacity}; top: {l.y}px; left: {l.x}px;" />
+  <span style="background-color: var(--t{l.i % 9}); opacity: {l.opacity}; top: {l.y}px; left: {l.x}px;" />
 {/each}
