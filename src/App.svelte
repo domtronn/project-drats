@@ -1,48 +1,50 @@
 <script>
-  import { onMount } from "svelte";
-  export let date;
+  import { Client } from 'boardgame.io/client'
+  import { Debug } from 'boardgame.io/debug';
+  import { Darts } from './game.js'
 
-  onMount(async () => {
-    const res = await fetch("/api/date");
-    const newDate = await res.text();
-    date = newDate;
-  });
+  import Game from './Game.svelte'
+  import GameForm from './GameForm.svelte'
+
+  import Board from './components/Board.svelte'
+  import ConfettiWinner from './components/ConfettiSvelte.svelte'
+  import Fireworks from './components/Fireworks.svelte'
+
+  let game, gameover, state
+
+  const startGame = (players) => {
+    game = Client({ game: Darts, numPlayers: players.length })
+    game.start()
+    state = game.getState()
+  }
+
+  const move = (f = _ => _) => (...args) => {
+    f(...args)
+    state = game.getState()
+  }
+
+  $: gameover = state && state.ctx.gameover
+
 </script>
 
+<style>
+</style>
+
 <main>
-  <h1>Svelte + Node.js API</h1>
-  <h2>
-    Deployed with
-    <a href="https://vercel.com/docs" target="_blank" rel="noreferrer noopener">
-      Vercel
-    </a>
-    !
-  </h2>
-  <p>
-    <a
-      href="https://github.com/vercel/vercel/tree/master/examples/svelte"
-      target="_blank"
-      rel="noreferrer noopener">
-      This project
-    </a>
-    is a
-    <a href="https://svelte.dev/">Svelte</a>
-    app with three directories,
-    <code>/public</code>
-    for static assets,
-    <code>/src</code>
-    for components and content, and
-    <code>/api</code>
-    which contains a serverless
-    <a href="https://nodejs.org/en/">Node.js</a>
-    function. See
-    <a href="/api/date">
-      <code>api/date</code>
-      for the Date API with Node.js
-    </a>
-    .
-  </p>
-  <br />
-  <h2>The date according to Node.js is:</h2>
-  <p>{date ? date : 'Loading date...'}</p>
+
+{#if !state}
+  <GameForm onSubmit={startGame} />
+  <Board />
+{:else}
+  <Game state={state} />
+  <Board onClick={move(game && game.moves.hitDart)}/>
+{/if}
+
+{#if gameover}
+  <ConfettiWinner
+    amount={50}
+    winner="Dom"
+    />
+  <Fireworks />
+{/if}
 </main>

@@ -16,6 +16,8 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "boardgame.io": "^0.42.2",
+    "darts-scorer-core": "^1.3.0",
     "sirv-cli": "^1.0.0"
   }
 }
