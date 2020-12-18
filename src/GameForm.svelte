@@ -55,6 +55,10 @@
 </script>
 
 <style>
+  h1 {
+    margin-bottom: 12px;
+  }
+
   input, button, p, div {
     margin-top: 0;
     margin-bottom: 24px;
@@ -76,6 +80,35 @@
     right: 12px;
   }
 
+  input + button {
+    color: var(--primary-1);
+
+    border-radius: 50%;
+    box-shadow:
+      -1px -1px 1px 0 rgba(255, 255, 255, 0.7) inset,
+      1.5px 1.5px 1px 0 rgba(190, 205, 226, 0.25) inset;
+  }
+
+  input + button:before {
+    display: none;
+  }
+
+  input + button:after {
+    content: '';
+    position: absolute;
+    width: 38px;
+    height: 38px;
+    border-radius: inherit;
+    left: -3px;
+    top: -3px;
+
+    opacity: 1;
+    box-shadow:
+      -1px -1px 3px 0 white,
+      1.5px 1.5px 2px 0 rgba(190, 205, 226, 0.4);
+  }
+
+
   div {
     position: relative;
   }
@@ -87,7 +120,7 @@
 
 </style>
 
-<h1>Drats!</h1>
+<h1>Drats</h1>
 
 <div>
   <input

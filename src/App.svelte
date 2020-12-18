@@ -11,6 +11,8 @@
   import ConfettiWinner from './components/ConfettiSvelte.svelte'
   import Fireworks from './components/Fireworks.svelte'
 
+  import GiDart from 'svelte-icons/gi/GiDart.svelte'
+
   let game, gameover, state, players
 
   const startGame = (p) => {
@@ -43,16 +45,24 @@
       "Form Dartboard"
       ". .";
   }
+
+  .icon {
+    color: var(--primary-1);
+    width: 64px;
+    margin: 0 auto 12px;
+  }
 </style>
 
 <main>
   {#if !state || !players}
     <Card>
+      <div class='icon'><GiDart /></div>
       <GameForm onSubmit={startGame} />
     </Card>
     <Board />
   {:else}
     <Card>
+      <div class='icon'><GiDart /></div>
       <Game state={state} players={players} />
     </Card>
     <Board onClick={move(game && game.moves.hitDart)}/>
