@@ -10,6 +10,7 @@
 
   const primSecoColorF = i => i % 2 ? 'primary' : 'secondary'
   const lightDarkColorF = i => i % 2 ? 'dark' : 'light'
+  const boxShadowF = i => i % 2 ? '' : `box-shadow: var(--inner);`
   const scoresClockwise = [6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9,
                          12, 5, 20, 1, 18, 4, 13]
 
@@ -18,25 +19,29 @@
       id: 'double',
       path: 'M 170.55,0 A 170.55,170.55 0 0 1 162.20269,52.70285 L 0,0 z',
       scoreF: i => scoresClockwise[i] * 2,
-      colorF: primSecoColorF
+      colorF: primSecoColorF,
+      boxShadowF: i => 'box-shadow: var(--emboss);'
     },
     {
       id: 'outer',
       path: 'M 161.45,0 A 161.45,161.45 0 0 1 153.54807,49.890794 L 0,0 z',
       scoreF: i => scoresClockwise[i],
-      colorF: lightDarkColorF
+      colorF: lightDarkColorF,
+      boxShadowF: i => 'box-shadow: var(--emboss);'
     },
     {
       id: 'triple',
       path: 'M 107.55,0 A 107.55,107.55 0 0 1 102.28613,33.234779 L 0,0 z',
       scoreF: i => scoresClockwise[i] * 3,
-      colorF: primSecoColorF
+      colorF: primSecoColorF,
+      boxShadowF: i => 'box-shadow: var(--emboss);'
     },
     {
       id: 'inner',
       path: 'M 98.449997,0 A 98.449997,98.449997 0 0 1 93.631511,30.422723 L 0,0 z',
       scoreF: i => scoresClockwise[i],
-      colorF: lightDarkColorF
+      colorF: lightDarkColorF,
+      boxShadowF: i => 'box-shadow: var(--emboss);'
     }
   ]
 </script>
@@ -81,7 +86,7 @@
               d="{segment.path}"
               id="{segment.id}-{i}"
               data-score="{segment.scoreF(i)}"
-              style="transform:rotate({- 9 + (i * 18)}deg); fill:var(--{segment.colorF(i)})"
+              style="{boxShadowF(i)}; transform:rotate({- 9 + (i * 18)}deg); fill:var(--{segment.colorF(i)})"
               />
             {/each}
           </g>

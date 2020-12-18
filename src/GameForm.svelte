@@ -1,4 +1,7 @@
 <script>
+  import IoIosClose from 'svelte-icons/io/IoIosClose.svelte'
+  import MdPersonAdd from 'svelte-icons/md/MdPersonAdd.svelte'
+
   import { onMount } from 'svelte'
   import Color from 'color'
 
@@ -7,11 +10,11 @@
   let value = ''
   let players = []
   const colors = [
-    ['#e8d032', '#1721d2', '#141414', 'white'],
-    ['#e0906d', '#4f07b4', '#2b2b2b', '#dee7e5'],
-    ['#fc5aac', '#a8fafa', '#141414', 'white'],
-    ['#9bf290', '#f36a49', '#141414', 'white'],
-    ['#792afe', '#8fffa2', '#141414', 'white']
+    ['#e8d032', '#1721d2', '#0C152E', '#f2f3f7'],
+    ['#e0906d', '#4f07b4', '#0C152E', '#f2f3f7'],
+    ['#a8fafa', '#fc5aac', '#0C152E', '#f2f3f7'],
+    ['#9bf290', '#f36a49', '#0C152E', '#f2f3f7'],
+    ['#8fffa2', '#792afe', '#0C152E', '#f2f3f7']
   ]
 
   const addPlayer = () => {
@@ -46,129 +49,81 @@
 </script>
 
 <style>
-  div {
-    grid-area: Form;
-
-    border-radius: 16px;
-    padding: 16px 32px;
-    margin: 32px;
-
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  input, button, p, div {
+    margin-top: 0;
+    margin-bottom: 24px;
   }
 
-  input, button {
-    margin-bottom: 8px;
-  }
-
-  input {
-    border: none;
-    outline: none;
-    background-color: #fafafa;
-    padding: 16px;
-    width: calc(100% - 32px);
-  }
-
-  button {
-    border: none;
-    outline: none;
-  }
-
-  p button {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    color: white;
-    background-color: var(--primary);
-  }
-
-  button:hover:not([disabled]) {
-    cursor: pointer;
-  }
-
-  button.btn {
+  p {
     width: 100%;
-    padding: 16px 32px;
-    border-radius: 8px;
-    display: block;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  button:disabled,
-  button[disabled]
-  {
-    border: 2px solid #c2c2c2;
-    color: #c2c2c2;
-  }
+  p button, .icon, div > input { margin: 0; }
 
-  .secondary {
-    font-weight: bold;
-    border: 2px solid var(--secondary);
-    color: var(--secondary);
-  }
-
-  .primary {
-    font-weight: bold;
-    border: 2px solid var(--primary);
-    color: var(--primary);
-  }
-
-  button.swatch {
-    display: inline-block;
-    margin: 8px;
-
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    transition: transform 0.2s ease-in-out;
-  }
-
-  button.swatch:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-  }
-
-  button.swatch p {
-    margin: 0;
-    width: 46px;
-    height: 46px;
-    transform: rotate(45deg);
+  input + button {
     position: absolute;
-    top: 9px;
-    left: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 12px;
   }
+
+  div {
+    position: relative;
+  }
+
+  .swatch, .swatch div {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
 </style>
 
-<div>
-  <h1>Drats!</h1>
-  {#each players as p, i}
-    <p>{p} <button on:click={removePlayer(i)}>x</button></p>
-  {/each}
-  <input bind:value={value} />
+<h1>Drats!</h1>
 
+<div>
+  <input bind:value={value} />
   <button
-    class='btn secondary'
+    class='icon'
     on:click={addPlayer}
     disabled={addDisabled}
-  >
-    Add another player
+    >
+    <MdPersonAdd />
   </button>
-  <button
-    class="btn primary"
-    on:click={() => onSubmit(players)}
-    disabled={submitDisabled}
-  >
-    Start game
-  </button>
-
-  {#each colors as c}
-    <button
-      class="swatch"
-      on:click={() => setTheme(c)}
-      style="background-color: {c[0]};"
-      >
-      <p style="background-color: {c[1]};" />
-    </button>
-  {/each}
-
 </div>
+
+{#each players as p, i}
+  <p>
+    <span>{p}</span>
+    <button class='icon' on:click={removePlayer(i)}>
+      <IoIosClose />
+    </button>
+  </p>
+{/each}
+
+<button
+  class="block primary"
+  on:click={() => onSubmit(players)}
+  disabled={submitDisabled}
+  >
+  Start game
+</button>
+
+{#each colors as c}
+  <div class='swatch'>
+    <input
+      name="theme"
+      type="radio"
+      on:click={() => setTheme(c)}
+    />
+    <div>
+      <span>
+        <span style="background-color: {c[0]}" >
+          <span style="background-color: {c[1]}" > </span>
+        </span>
+      </span>
+    </div>
+  </div>
+{/each}

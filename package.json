@@ -20,6 +20,7 @@
     "color": "^3.1.3",
     "darts-scorer-core": "^1.3.0",
     "mix-color": "^1.1.2",
-    "sirv-cli": "^1.0.0"
+    "sirv-cli": "^1.0.0",
+    "svelte-icons": "^2.1.0"
   }
 }

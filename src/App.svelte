@@ -6,6 +6,7 @@
   import Game from './Game.svelte'
   import GameForm from './GameForm.svelte'
 
+  import Card from './components/Card.svelte'
   import Board from './components/Board.svelte'
   import ConfettiWinner from './components/ConfettiSvelte.svelte'
   import Fireworks from './components/Fireworks.svelte'
@@ -46,10 +47,14 @@
 
 <main>
   {#if !state || !players}
-    <GameForm onSubmit={startGame} />
+    <Card>
+      <GameForm onSubmit={startGame} />
+    </Card>
     <Board />
   {:else}
-    <Game state={state} players={players} />
+    <Card>
+      <Game state={state} players={players} />
+    </Card>
     <Board onClick={move(game && game.moves.hitDart)}/>
   {/if}
 
