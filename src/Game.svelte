@@ -1,6 +1,5 @@
 <script>
   export let state, players
-  console.log(players)
 
   import ScoreTable from './components/ScoreTable.svelte'
   import { DartsStub } from './game'
@@ -15,6 +14,24 @@
     : ''
 
 </script>
+
+<style>
+  h2 {
+    text-align: center;
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    transition: filter 0.2s ease-in-out;
+    filter: blur(9px);
+  }
+
+  h2:hover {
+    cursor: pointer;
+    filter: blur(0px);
+  }
+</style>
 
 <ScoreTable
   active={player}

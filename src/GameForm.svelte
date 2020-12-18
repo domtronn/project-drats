@@ -17,7 +17,13 @@
     ['#8fffa2', '#792afe', '#0C152E', '#f2f3f7']
   ]
 
+  const onKeyPress = (e) => {
+    if (e.charCode === 13 && e.shiftKey && players.length) return onSubmit(players)
+    if (e.charCode === 13) return addPlayer()
+  }
+
   const addPlayer = () => {
+    if (!value.length) return
     players = players.concat(value)
     value = ''
   }
@@ -84,7 +90,10 @@
 <h1>Drats!</h1>
 
 <div>
-  <input bind:value={value} />
+  <input
+    on:keypress={onKeyPress}
+    bind:value={value}
+    />
   <button
     class='icon'
     on:click={addPlayer}

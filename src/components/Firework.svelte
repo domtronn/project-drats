@@ -53,6 +53,7 @@
 
 <style>
   span {
+    opacity: 0;
     position: absolute;
     width: 12px;
     height: 12px;

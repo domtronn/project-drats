@@ -1,25 +1,19 @@
 <script>
   export let players, scores, throws, active
-  console.log(players)
 </script>
 
 <style>
   table {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    margin: 32px;
-    padding: 32px;
+    margin: 0 auto;
   }
 
   th {
     font-size: 1.5em;
   }
 
-  th.active {
+  .active {
     font-weight: bold;
-    color: red;
+    color: var(--primary-1);
   }
 
   tr { width: auto; }
@@ -30,7 +24,13 @@
   }
 
   span.bust {
-    color: red;
+    color: var(--primary-1);
+  }
+
+  .scores td {
+    font-size: 3em;
+    font-weight: bold;
+    margin: 0;
   }
 
 </style>
@@ -38,17 +38,17 @@
 <table>
   <tr class='players'>
     {#each players as player, i}
-      {#if i == active}
-        <th class='active'>{player}</th>
-      {:else}
-        <th>{player}</th>
-      {/if}
+      <th class:active={i == active}>
+        {player}
+      </th>
     {/each}
   </tr>
 
   <tr class='scores'>
-    {#each scores as score}
-      <td>{score}</td>
+    {#each scores as score, i}
+      <td class:active={i == active}>
+        {score}
+      </td>
     {/each}
   </tr>
 
@@ -57,15 +57,9 @@
       {#each ts as t}
         <td>
           {#each t as s}
-            {#if s.bust}
-              <span class='bust'>
-                {s.txt}
-              </span>
-            {:else}
-              <span>
-                {s.txt}
-              </span>
-            {/if}
+            <span class:bust={s.bust}>
+              {s.txt}
+            </span>
           {/each}
         </td>
       {/each}
