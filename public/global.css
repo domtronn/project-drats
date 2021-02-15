@@ -1,18 +1,49 @@
+:root {
+  --primary: #e8d032;
+  --secondary: #1721d2;
+
+  --text: #8C94A0;
+  --dark: #0C152E;
+  --light: #f2f3f7;
+
+  --white: #fff;
+
+  --med-1: #f2f3f7;
+  --med-2: #8C94A0;
+  --med-2-50: rgb(140, 148, 160, 0.5);
+
+  --dark-1: rgb(190, 205, 226);
+  --dark-1-50: rgba(190, 205, 226, 0.5);
+  --dark-1-25: rgba(190, 205, 226, 0.25);
+  --dark-2: #8C94A0;
+  --dark-3: #456078;
+  --dark-4: #0C152E;
+
+  --primary-1: #4070F4;
+  --primary-2: #40B3F4;
+  --primary-3: #3F62C1;
+
+  --inset: 4px 4px 8px 0 var(--dark-1-50) inset, -5px -5px 30px 0 var(--white) inset;
+  --emboss: 6px 6px 16px 0 var(--dark-1), -6px -6px 16px 0 var(--white);
+}
+
+body {
+  margin: 0;
+  background-color: var(--med-1);
+}
+
 main {
   align-content: center;
   box-sizing: border-box;
-  display: grid;
-  font-family: 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica',
-    'Arial', sans-serif;
+  font-family: 'Roboto', 'SF Pro Icons', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   hyphens: auto;
   line-height: 1.65;
   margin: 0 auto;
-  max-width: 680px;
   min-height: 100vh;
-  padding: 72px 0;
   text-align: center;
 }
 h1 {
+  margin: 0;
   font-size: 45px;
 }
 h2 {
@@ -21,24 +52,209 @@ h2 {
 p {
   font-size: 16px;
 }
-a {
-  border-bottom: 1px solid white;
-  color: #0076ff;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.2s ease;
+
+p, span, button, input {
+  font-size: 18px;
+  line-height: 22px;
 }
-a:hover {
-  border-bottom: 1px solid #0076ff;
+
+h1, h2, h3, h4, p, span, input {
+  color: var(--dark-3);
+  letter-spacing: 1px;
+  font-weight: 400;
 }
-code,
-pre {
-  color: #d400ff;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace, serif;
-  font-size: 0.92em;
-}
+
 code:before,
 code:after {
   content: '\`';
+}
+
+/** Neumorphic design */
+input {
+  font-size: 12px;
+  line-height: 20px;
+
+  border: none;
+  outline: none;
+  padding: 18px 24px;
+  border-radius: 4px;
+  width: calc(100% - 48px);
+
+  color: var(--dark-2);
+  background-color: var(--med-1);
+  box-shadow:
+    4px 4px 8px 0 var(--dark-1-50) inset,
+    -5px -5px 30px 0 var(--white) inset;
+}
+
+button {
+  position: relative;
+  border: none;
+  outline: none;
+
+  padding: 20px 36px;
+  border-radius: 4px;
+
+  background-color: var(--med-1);
+  color: var(--dark-3);
+  transition: color 0.2s ease-in-out;
+}
+
+button.primary {
+  background-color: var(--primary-1);
+  color: var(--white);
+}
+
+button::before,
+button::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  transition: opacity 0.2s ease-in-out;
+}
+
+button::after {
+  opacity: 0;
+  box-shadow: var(--inset);
+}
+
+button::before {
+  opacity: 1;
+  box-shadow: var(--emboss);
+}
+
+button.primary::after {
+  box-shadow:
+    -5px -5px 15px 0 rgba(255, 255, 255, 0.25) inset,
+    10px 10px 15px 0 #1a40ab inset;
+}
+
+button.primary:not([disabled]):hover {
+  background-color: var(--primary-3);
+}
+
+button:not([disabled]):hover::after {
+  cursor: pointer;
+  opacity: 1;
+}
+button:not([disabled]):hover::before {
+  opacity: 0;
+}
+
+button.block {
+  width: 100%;
+}
+
+button.icon {
+  padding: 6px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  padding: 6px;
+}
+
+button.icon svg {
+  transition: fill 0.2s ease-in-out;
+  fill: var(--primary-1);
+}
+
+button:disabled,
+button[disabled]
+{
+  color: var(--med-2-50);
+}
+
+button.icon:disabled svg,
+button.icon[disabled] svg
+{
+  fill: var(--med-2-50);
+}
+
+
+button.primary:disabled,
+button.primary[disabled] {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.card {
+  margin: 48px;
+  padding: 48px 24px;
+
+  border-radius: 40px;
+  background-color: var(--med-1);
+  box-shadow:
+    6px 6px 16px 0 var(--dark-1),
+    -6px -6px 16px 0 var(--white);
+}
+
+.swatch {
+  position: relative;
+  display: inline-block;
+}
+
+.swatch div {
+  cursor: pointer;
+  position: relative;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border: 12px solid transparent;
+  transform: rotate(45deg);
+  background-clip: padding-box;
+  margin: 0 8px;
+
+  box-shadow: var(--emboss);
+}
+
+.swatch div:before {
+  content: '';
+  position: absolute;
+  border-radius: inherit;
+  top: 0; right: 0; left: 0; bottom: 0;
+  z-index: -1;
+  margin: -12px;
+  background: linear-gradient(#356dfd, #4adbfc);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.swatch input[type="radio"]:checked + div:before {
+  opacity: 1;
+}
+
+.swatch input[type="radio"] {
+  z-index: 8;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transform: rotate(-45deg);
+}
+
+
+.swatch div > span {
+  position: absolute;
+  left: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+}
+
+.swatch div > span span {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+}
+
+.swatch div > span > span > span {
+  left: -100%;
 }
