@@ -1,7 +1,8 @@
 <script>
   import { onMount } from 'svelte'
+  import IoIosStar from 'svelte-icons/io/IoIosStar.svelte'
 
-  export let amount = 400, winner
+  export let amount = 400, winner, onReset = _ => _
 
   let confetti = [...Array(amount)]
       .map((_, i) => {
@@ -50,7 +51,7 @@
     font-size: 5vw;
   }
 
-  div {
+  .container {
     background-color: rgba(255, 255, 255, 0.8);
     position: absolute;
     display: flex;
@@ -61,10 +62,23 @@
     left: 0;
     right: 0;
   }
+
+  .card {
+    padding: 64px;
+  }
+
 </style>
 
-<div>
-  <h1>{winner}</h1>
+<div class='container'>
+  <div class='card'>
+    <h1>{winner}</h1>
+    <button
+      on:click={onReset}
+      class='block primary'
+      >
+      Start new game
+    </button>
+  </div>
 </div>
 
 {#each confetti as c}

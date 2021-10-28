@@ -68,11 +68,13 @@
     <Board onClick={move(game && game.moves.hitDart)}/>
   {/if}
 
-{#if gameover}
-  <ConfettiWinner
-    amount={50}
-    winner="Dom"
-    />
-  <Fireworks />
-{/if}
+
+  {#if gameover}
+    <ConfettiWinner
+      amount={50}
+      winner="Dom"
+      onReset={startGame}
+      />
+    <Fireworks />
+  {/if}
 </main>
